@@ -1,0 +1,26 @@
+{
+	"presets": {
+		"js": {
+			"fileFormat": "export * from './$P$E';",
+			"folderFormat": "export * from './$P/index$E';"
+		},
+		"ts": {
+			"fileFormat": "export * from './$P';"
+		},
+		"css": {
+			"fileFormat": "@import './$P.css';",
+			"folderFormat": "@import './$P/index.css';"
+		},
+		"sass": {
+			"fileFormat": "@forward './$P';",
+			"folderFormat": "@forward './$P/index';"
+		}
+	},
+	"defaults": {
+		"fileInclude": ["*$E"],
+		"folderInclude": ["*"],
+		"fileExclude": ["_*"],
+		"folderExclude": ["_*"],
+		"requiredIndex": "'index$E'"
+	}
+}

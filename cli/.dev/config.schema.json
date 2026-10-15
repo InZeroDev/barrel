@@ -1,0 +1,88 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"type": "object",
+	"properties": {
+		"presets": {
+			"type": "object",
+			"propertyNames": {
+				"type": "string"
+			},
+			"additionalProperties": {
+				"type": "object",
+				"properties": {
+					"fileInclude": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"folderInclude": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"fileExclude": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"folderExclude": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"fileFormat": {
+						"type": "string"
+					},
+					"folderFormat": {
+						"type": "string"
+					},
+					"requiredIndex": {
+						"type": "string"
+					}
+				},
+				"required": ["fileFormat"]
+			}
+		},
+		"defaults": {
+			"type": "object",
+			"properties": {
+				"fileInclude": {
+					"default": ["*$E"],
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"folderInclude": {
+					"default": ["*"],
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"fileExclude": {
+					"default": ["_*"],
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"folderExclude": {
+					"default": ["_*"],
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"requiredIndex": {
+					"default": "index$E",
+					"type": "string"
+				}
+			}
+		}
+	}
+}
