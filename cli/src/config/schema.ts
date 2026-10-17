@@ -1,11 +1,11 @@
 import z from "zod";
 
 const presetSchema = z.object({
-	fileInclude: z.array(z.string()).optional(),
-	folderInclude: z.array(z.string()).optional(),
+	includeFiles: z.array(z.string()).optional(),
+	includeFolders: z.array(z.string()).optional(),
 
-	fileExclude: z.array(z.string()).optional(),
-	folderExclude: z.array(z.string()).optional(),
+	excludeFiles: z.array(z.string()).optional(),
+	excludeFolders: z.array(z.string()).optional(),
 
 	fileFormat: z.string(),
 	folderFormat: z.string().optional(),
@@ -16,11 +16,11 @@ const presetSchema = z.object({
 const presetsSchema = z.record(z.string(), presetSchema);
 
 const defaultsSchema = z.object({
-	fileInclude: z.array(z.string()).default(["*$E"]),
-	folderInclude: z.array(z.string()).default(["*"]),
+	includeFiles: z.array(z.string()).default(["*$E"]),
+	includeFolders: z.array(z.string()).default(["*"]),
 
-	fileExclude: z.array(z.string()).default(["_*"]),
-	folderExclude: z.array(z.string()).default(["_*"]),
+	excludeFiles: z.array(z.string()).default(["_*"]),
+	excludeFolders: z.array(z.string()).default(["_*"]),
 
 	requiredIndex: z.string().default("index$E"),
 });

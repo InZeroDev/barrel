@@ -16,20 +16,20 @@ const opts = [
 	},
 
 	{
-		flags: "-i, --file-include <fileInclude...>",
+		flags: "-i, --include-files <includeFiles...>",
 		desc: "Glob patterns for files to include relatively to the barrel's directory.",
 	},
 	{
-		flags: "-I, --folder-include <folderInclude...>",
+		flags: "-I, --include-folders <includeFolders...>",
 		desc: "Glob patterns for folders to include relatively to the barrel's directory.",
 	},
 
 	{
-		flags: "-e, --file-exclude <fileExclude...>",
+		flags: "-e, --exclude-files <excludeFiles...>",
 		desc: "Glob patterns for files to exclude relatively to the barrel's directory.",
 	},
 	{
-		flags: "-E, --folder-exclude <folderExclude...>",
+		flags: "-E, --exclude-folders <excludeFolders...>",
 		desc: "Glob patterns for folders to exclude relatively to the barrel's directory.",
 	},
 

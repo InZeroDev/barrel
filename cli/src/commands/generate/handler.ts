@@ -10,11 +10,11 @@ import fs from "fs-extra";
 type Options = {
 	preset: string[];
 
-	fileInclude?: string[];
-	folderInclude?: string[];
+	includeFiles?: string[];
+	includeFolders?: string[];
 
-	fileExclude?: string[];
-	folderExclude?: string[];
+	excludeFiles?: string[];
+	excludeFolders?: string[];
 
 	fileFormat?: string;
 	folderFormat?: string;
@@ -91,26 +91,26 @@ function getPreset(barrel: string, opts: Options): Required<Preset> {
 }
 
 function getItems(barrel: string, preset: Required<Preset>) {
-	preset.fileExclude.push(path.basename(barrel));
+	preset.excludeFiles.push(path.basename(barrel));
 	const barrelFolder = path.dirname(barrel);
 
 	const replacePlaceholders = (value: string) => value.replace(/\$E/g, path.extname(barrel));
 
 	const fileItems = iife(() => {
-		const source = preset.fileInclude.map(replacePlaceholders);
+		const source = preset.includeFiles.map(replacePlaceholders);
 		const options: GlobOptions = {
 			cwd: barrelFolder,
-			ignore: preset.fileExclude,
+			ignore: preset.excludeFiles,
 			onlyFiles: true,
 		};
 		return glob.sync(source, options);
 	});
 
 	const folderItems = iife(() => {
-		const source = preset.folderInclude.map(replacePlaceholders);
+		const source = preset.includeFolders.map(replacePlaceholders);
 		const options: GlobOptions = {
 			cwd: barrelFolder,
-			ignore: preset.folderExclude.map(replacePlaceholders),
+			ignore: preset.excludeFolders.map(replacePlaceholders),
 			onlyFiles: false,
 			onlyDirectories: true,
 		};
