@@ -55,7 +55,7 @@ function handleFile(barrel: string, opts: Options) {
 	fs.writeFileSync(barrel, output);
 }
 
-function getPreset(barrel: string, opts: Options) {
+function getPreset(barrel: string, opts: Options): Required<Preset> {
 	const targetPreset = iife(() => {
 		const presetsObj = Object.fromEntries(
 			opts.preset
@@ -69,6 +69,13 @@ function getPreset(barrel: string, opts: Options) {
 
 	const preset = config.presets?.[targetPreset];
 	if (!preset) {
+		if (opts.fileFormat) {
+			return {
+				...config.defaults,
+				fileFormat: opts.fileFormat,
+				folderFormat: opts.folderFormat ?? opts.fileFormat,
+			};
+		}
 		console.log(`Preset "${targetPreset}" not found.`);
 		console.log("Available presets: " + Object.keys(config.presets).join(", "));
 		console.log(`You can add/edit presets in the config file. Run: ${cliName} config`);
