@@ -57,6 +57,8 @@ function handleFile(barrel: string, opts: Options) {
 
 function getPreset(barrel: string, opts: Options): Required<Preset> {
 	const targetPreset = iife(() => {
+		if (opts.preset.length === 1 && !opts.preset[0]!.includes(":")) return opts.preset[0]!;
+
 		const presetsObj = Object.fromEntries(
 			opts.preset
 				.filter((p) => p.includes(":"))
@@ -64,7 +66,7 @@ function getPreset(barrel: string, opts: Options): Required<Preset> {
 		);
 
 		const barrelExt = path.extname(barrel).slice(1);
-		return presetsObj[barrelExt] ?? presetsObj["*"] ?? barrelExt;
+		return presetsObj[barrelExt] ?? barrelExt;
 	});
 
 	const preset = config.presets?.[targetPreset];
