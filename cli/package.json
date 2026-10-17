@@ -9,6 +9,14 @@
 	],
 	"license": "MIT",
 	"author": "InZero",
+	"files": [
+		"dist",
+		".dev/config.default.json",
+		"package.json",
+		"README.md",
+		"LICENSE",
+		"CHANGELOG.md"
+	],
 	"scripts": {
 		"build": "tsup",
 		"dev": "tsup --watch",
