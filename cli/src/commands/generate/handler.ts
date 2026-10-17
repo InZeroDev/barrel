@@ -64,8 +64,7 @@ function getPreset(barrel: string, opts: Options) {
 		);
 
 		const barrelExt = path.extname(barrel).slice(1);
-		const userPreset = presetsObj[barrelExt];
-		return userPreset ?? barrelExt;
+		return presetsObj[barrelExt] ?? presetsObj["*"] ?? barrelExt;
 	});
 
 	const preset = config.presets?.[targetPreset];
