@@ -3,86 +3,34 @@
 	"type": "object",
 	"properties": {
 		"presets": {
+			"default": {},
 			"type": "object",
-			"propertyNames": {
-				"type": "string"
-			},
+			"propertyNames": { "type": "string" },
 			"additionalProperties": {
 				"type": "object",
 				"properties": {
-					"fileInclude": {
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					"folderInclude": {
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					"fileExclude": {
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					"folderExclude": {
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					},
-					"fileFormat": {
-						"type": "string"
-					},
-					"folderFormat": {
-						"type": "string"
-					},
-					"requiredIndex": {
-						"type": "string"
-					}
+					"includeFiles": { "type": "array", "items": { "type": "string" } },
+					"includeFolders": { "type": "array", "items": { "type": "string" } },
+					"excludeFiles": { "type": "array", "items": { "type": "string" } },
+					"excludeFolders": { "type": "array", "items": { "type": "string" } },
+					"fileFormat": { "type": "string" },
+					"folderFormat": { "type": "string" },
+					"requiredIndex": { "type": "string" }
 				},
 				"required": ["fileFormat"]
 			}
 		},
 		"defaults": {
+			"default": {},
 			"type": "object",
 			"properties": {
-				"fileInclude": {
-					"default": ["*$E"],
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"folderInclude": {
-					"default": ["*"],
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"fileExclude": {
-					"default": ["_*"],
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"folderExclude": {
-					"default": ["_*"],
-					"type": "array",
-					"items": {
-						"type": "string"
-					}
-				},
-				"requiredIndex": {
-					"default": "index$E",
-					"type": "string"
-				}
+				"includeFiles": { "default": ["*$E"], "type": "array", "items": { "type": "string" } },
+				"includeFolders": { "default": ["*"], "type": "array", "items": { "type": "string" } },
+				"excludeFiles": { "default": ["_*"], "type": "array", "items": { "type": "string" } },
+				"excludeFolders": { "default": ["_*"], "type": "array", "items": { "type": "string" } },
+				"requiredIndex": { "default": "index$E", "type": "string" }
 			}
-		}
+		},
+		"openConfigCmd": { "default": "code $P", "type": "string" }
 	}
 }
