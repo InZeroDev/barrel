@@ -24,6 +24,7 @@
 		"folderInclude": ["*"],
 		"fileExclude": ["_*"],
 		"folderExclude": ["_*"],
-		"requiredIndex": "'index$E'"
-	}
+		"requiredIndex": "index$E"
+	},
+	"openConfigCmd": "code $P"
 }
