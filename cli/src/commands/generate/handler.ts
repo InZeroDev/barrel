@@ -131,15 +131,12 @@ function generateOutput(
 		folderFormat,
 	}: { fileItems: string[]; folderItems: string[]; fileFormat: string; folderFormat: string },
 ) {
-	const barrelFolder = path.dirname(barrel);
-
 	let output = "";
 
 	for (const item of fileItems) {
 		const noExtItem = removeExtension(item);
 
 		const placeholders = {
-			F: barrelFolder,
 			P: noExtItem,
 			E: path.extname(item),
 		};
@@ -154,7 +151,6 @@ function generateOutput(
 
 	for (const item of folderItems) {
 		const placeholders = {
-			F: barrelFolder,
 			P: item,
 			E: path.extname(barrel),
 		};
