@@ -1,20 +1,17 @@
+import { config } from "~/config";
 import type { Argument, Option } from "../types";
 
 const args = [
 	{
 		name: "[key]",
-		desc: "The key to get or set. dot-separated path is supported.",
-	},
-	{
-		name: "[value]",
-		desc: "The value to set. Should be used only when key is a leaf key.",
+		desc: "The key to view. dot-separated path is supported.",
 	},
 ] as const satisfies Argument[];
 
 const opts = [
 	{
 		flags: "-o, --open",
-		desc: "Open the config file using VSCode.",
+		desc: `Open the config file using: \`${config.openConfigCmd}\``,
 		def: false,
 	},
 ] as const satisfies Option[];
