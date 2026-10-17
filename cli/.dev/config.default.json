@@ -7,6 +7,9 @@
 		"ts": {
 			"fileFormat": "export * from './$P';"
 		},
+    "ts-imp": {
+      "fileFormat": "import './$P';"
+    },
 		"css": {
 			"fileFormat": "@import './$P.css';",
 			"folderFormat": "@import './$P/index.css';"
