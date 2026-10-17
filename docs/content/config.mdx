@@ -1,0 +1,227 @@
+---
+title: Config
+---
+
+View/Open the config file.
+
+## Usage
+
+```bash title='Terminal'
+barrel config [key] [options]
+```
+
+<Callout type="info">
+
+- Pass no arguments to print the config file path.
+- Pass only a key to print its value.
+
+</Callout>
+
+## Arguments
+
+| Argument | Description           |
+| -------- | --------------------- |
+| `[key]`  | The key to view/edit. |
+
+## Options
+
+| Option       | Description                        |
+| ------------ | ---------------------------------- |
+| `-o, --open` | Open the config file using VSCode. |
+
+<Callout type="info">
+
+You can open the config file using a different command using the [config.openConfigCmd](#openconfigcmd) key.
+
+</Callout>
+
+## Examples
+
+```bash title='Terminal'
+barrel config
+# /home/user/.config/inzero-barrel-nodejs/config.json
+```
+
+```bash title='Terminal'
+barrel config --open
+# Opens the config file using `code`
+```
+
+```bash title='Terminal'
+barrel config defaults.folderInclude
+# ['*']
+```
+
+## Config Keys
+
+### `presets`
+
+Presets are pre-defined options the CLI will use per-extension to avoid running the CLI multiple times for multiple extensions.
+
+#### Keys
+
+Each preset is an object with the following keys:
+
+| Key             | Type       | Default                         |
+| --------------- | ---------- | ------------------------------- |
+| `fileFormat`    | `string`   | _Required_                      |
+| `folderFormat`  | `string`   | `fileFormat`                    |
+| `fileInclude`   | `string[]` | `config.defaults.fileInclude`   |
+| `folderInclude` | `string[]` | `config.defaults.folderInclude` |
+| `fileExclude`   | `string[]` | `config.defaults.fileExclude`   |
+| `folderExclude` | `string[]` | `config.defaults.folderExclude` |
+| `requiredIndex` | `string`   | `config.defaults.requiredIndex` |
+
+<Callout type="info">
+
+For more information about these options, see the [generate options](/generate#options) section.
+
+</Callout>
+
+<Callout type="info">
+
+Most of the time you will only need to change `fileFormat` and `folderFormat`.
+
+</Callout>
+
+#### Example
+
+```json title='config.json'
+{
+  "presets": {
+    "sh": {
+      "fileFormat": "source $P$E",
+      "folderFormat": "source $P/index$E"
+    }
+  }
+}
+```
+
+Next time you run the CLI on a `.sh` file, it will use this preset and generate a barrel file that looks like this:
+
+```sh title='barrel.sh'
+source ./aliases.sh
+source ./functions.sh
+```
+
+---
+
+### `defaults`
+
+Change the CLI defaults.
+
+#### Keys
+
+You can change the following defaults:
+
+| Key             | Type       | Default     |
+| --------------- | ---------- | ----------- |
+| `fileInclude`   | `string[]` | `["*$E"]`   |
+| `folderInclude` | `string[]` | `["*"]`     |
+| `fileExclude`   | `string[]` | `["_*"]`    |
+| `folderExclude` | `string[]` | `["_*"]`    |
+| `requiredIndex` | `string`   | `"index$E"` |
+
+<Callout type="info">
+
+For more information about these options, see the [generate options](/generate#options) section.
+
+</Callout>
+
+#### Example
+
+```json title='config.json'
+{
+  "defaults": {
+    "folderInclude": [] // No folders will be included by default
+  }
+}
+```
+
+---
+
+### `openConfigCmd`
+
+Change the command used to open the config file.
+
+### Example
+
+```json title='config.json'
+{
+  "openConfigCmd": "xdg-open $P"
+}
+```
+
+Next time you run `barrel config --open`, it will open the config file using `xdg-open` instead of `code`.
+
+---
+
+## Default Config
+
+If you run the CLI for the first time, or delete the config file, the following `config.json` will be generated (clean version):
+
+```json  tab='detailed'
+{
+  "presets": {
+    "js": {
+      "fileFormat": "export * from './$P$E';", // export * from './string.js';
+      "folderFormat": "export * from './$P/index$E';" // export * from './string/index.js';
+    },
+    "ts": {
+      "fileFormat": "export * from './$P';" // export * from './string';
+    },
+    "ts-imp": {
+      "fileFormat": "import './$P';" // import './string';
+    },
+    "css": {
+      "fileFormat": "@import './$P$E';", // @import './string.css';
+      "folderFormat": "@import './$P/index$E';" // @import './string/index.css';
+    },
+    "sass": {
+      "fileFormat": "@forward './$P';", // @forward './string';
+      "folderFormat": "@forward './$P/index';" // @forward './string/index';
+    }
+  },
+  "defaults": {
+    "fileInclude": ["*$E"], // Include all files with the same barrel's extension
+    "folderInclude": ["*"], // Include all folders
+    "fileExclude": ["_*"], // Exclude all files starting with an underscore
+    "folderExclude": ["_*"], // Exclude all folders starting with an underscore
+    "requiredIndex": "index$E" // All folders must have an index file with the same barrel's extension for them to be included
+  },
+  "openConfigCmd": "code $P" // Open the config file using VSCode
+}
+```
+
+```json tab='clean'
+{
+  "presets": {
+    "js": {
+      "fileFormat": "export * from './$P$E';",
+      "folderFormat": "export * from './$P/index$E';"
+    },
+    "ts": {
+      "fileFormat": "export * from './$P';"
+    },
+    "ts-imp": {
+      "fileFormat": "import './$P';"
+    },
+    "css": {
+      "fileFormat": "@import './$P$E';",
+      "folderFormat": "@import './$P/index$E';"
+    },
+    "sass": {
+      "fileFormat": "@forward './$P';",
+      "folderFormat": "@forward './$P/index';"
+    }
+  },
+  "defaults": {
+    "fileInclude": ["*$E"],
+    "folderInclude": ["*"],
+    "fileExclude": ["_*"],
+    "folderExclude": ["_*"],
+    "requiredIndex": "index$E"
+  },
+  "openConfigCmd": "code $P"
+}
+```

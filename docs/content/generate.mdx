@@ -1,0 +1,127 @@
+---
+title: generate
+---
+
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+import { Files, File, Folder } from "fumadocs-ui/components/files";
+
+Generate barrel files for the specified paths.
+
+## Usage
+
+```bash title='Terminal'
+barrel generate <paths...> [options]
+```
+
+Because this command is the default command, you can simply run:
+
+```bash title='Terminal'
+barrel <paths...> [options]
+```
+
+## Arguments
+
+| Argument     | Description                                         | Required |
+| ------------ | --------------------------------------------------- | -------- |
+| `<paths...>` | Glob patterns for files to convert to barrel files. | Yes      |
+
+## options
+
+| Option                                      | Description                                                                 |
+| ------------------------------------------- | --------------------------------------------------------------------------- |
+| `-p, --preset <preset...>`                  | Presets to use. Example: `--preset js`                                      |
+| `-i, --include-files <includeFiles...>`     | Glob patterns for files to include. Relatively to the barrel's directory.   |
+| `-I, --include-folders <includeFolders...>` | Glob patterns for folders to include. Relatively to the barrel's directory. |
+| `-e, --exclude-files <excludeFiles...>`     | Glob patterns for files to exclude. Relatively to the barrel's directory.   |
+| `-E, --exclude-folders <excludeFolders...>` | Glob patterns for folders to exclude. Relatively to the barrel's directory. |
+| `-f, --file-format <fileFormat>`            | How to re-export files. Example: `import './$P';`.                          |
+| `-F, --folder-format <folderFormat>`        | How to re-export folders. Example: `import './$P/index';`.                  |
+| `-r, --required-index <requiredIndex>`      | A file to require for folders to have. Default: `index$E`.                  |
+| `-c, --cwd <cwd>`                           | Current working directory.                                                  |
+
+<Callout type="info">
+
+`--file-format` support the following placeholders:
+
+- `$P`: the file's path without extension. (Relative to the barrel's directory).
+- `$E`: the file's extension.
+
+</Callout>
+
+<Callout type="info">
+
+`--folder-format` support the following placeholders:
+
+- `$P`: the file's path without extension (Relative to the barrel's directory).
+- `$E`: the barrel's extension.
+
+</Callout>
+
+<Callout type="info">
+
+`--required-index` support the following placeholders:
+
+- `$E`: the barrel's extension.
+
+</Callout>
+
+<Callout type="info">
+
+You can specify extension-specific presets instead of enforcing a single preset on everything by using this syntax: `<extension>:<preset>`
+
+```bash title='Terminal'
+barrel src/index.ts --preset ts:js tsx:js
+```
+
+</Callout>
+
+## Example
+
+Project Structure:
+
+<Files>
+  <Folder name="utils" defaultOpen>
+    <File name="index.ts" className="bg-white/5" />
+    <File name="string.ts" />
+    <File name="number.ts" />
+    <Folder name="object" defaultOpen>
+      <File name="modifiers.ts" />
+      <File name="getters.ts" />
+    </Folder>
+    <Folder name="array" defaultOpen>
+      <File name="index.ts" className="bg-white/5" />
+      <File name="modifiers.ts" />
+      <File name="getters.ts" />
+    </Folder>
+  </Folder>
+</Files>
+
+Command:
+
+```bash tab='long'
+barrel utils/index.ts --file-format 'import "./$P";' --folder-format 'import "./$P/index";' --exclude-files number.ts --required-index index.ts
+```
+
+```bash tab='short'
+barrel utils/index.ts -f 'import "./$P";' -F 'import "./$P/index";' -e number.ts -r index.ts
+```
+
+<Callout>
+
+- I'm trying to squeeze in more options into a single example,
+that's why the command seems a little long. Most of the times, the defaults are enough.
+- Also, you can convert long commands like this into [presets](/config#presets).
+
+</Callout>
+
+Output:
+
+```ts title='utils/index.ts'
+import "./string";
+import "./array/index";
+```
+
+Notes:
+
+- `number` was excluded because of the `-e, --exclude-files` option.
+- `object` was excluded because it doesn't have an index file.

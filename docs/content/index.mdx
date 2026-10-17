@@ -1,3 +1,112 @@
 ---
 title: Overview
 ---
+
+import { Files, File, Folder } from "fumadocs-ui/components/files";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+`@inzero/barrel` is a CLI tool that generates barrel files for your project.
+
+## Installation
+
+```npm
+npm install -g @inzero/barrel
+```
+
+## Features
+
+- Generate barrel files for multiple extensions in one go.
+- Configurable presets and defaults.
+
+
+
+## Quick Example
+
+Project Structure
+
+<Files>
+  <Folder name="src" defaultOpen>
+    <Folder name="utils" defaultOpen>
+      <Folder name="object">
+        <File name="index.ts" className="bg-white/5" />
+        <File name="modifiers.ts" />
+        <File name="getters.ts" />
+      </Folder>
+      <File name="index.ts" className="bg-white/5" />
+      <File name="string.ts" />
+      <File name="number.ts" />
+    </Folder>
+
+    <Folder name="css" defaultOpen>
+      <Folder name="components">
+        <File name="index.css" className="bg-white/5" />
+        <File name="button.css" />
+        <File name="input.css" />
+      </Folder>
+      <File name="index.css" className="bg-white/5" />
+      <File name="main.css" />
+      <File name="layout.css" />
+    </Folder>
+
+  </Folder>
+</Files>
+
+Command
+
+```bash title='Terminal'
+barrel src/**/index.*
+```
+
+Output
+
+<Tabs items={["src/utils/index.ts", "src/utils/object/index.ts"]}>
+<Tab value="src/utils/index.ts">
+
+```ts
+export * from "./string";
+export * from "./number";
+export * from "./object";
+```
+
+</Tab>
+<Tab value="src/utils/object/index.ts">
+
+```ts
+export * from "./modifiers";
+export * from "./getters";
+```
+
+</Tab>
+</Tabs>
+
+
+<Tabs items={["src/css/index.css", "src/css/components/index.css"]}>
+<Tab value="src/css/index.css">
+
+```css
+@import "./main.css";
+@import "./layout.css";
+@import "./components/index.css";
+```
+
+</Tab>
+<Tab value="src/css/components/index.css">
+
+```css
+@import "./button.css";
+@import "./input.css";
+```
+
+</Tab>
+</Tabs>
+
+<Callout type="info">
+
+The CLI was able to generate 2 different types of barrel files (TypeScript and CSS) because it uses [presets](/config#presets).
+
+</Callout>
+
+## Commands
+
+- [generate](/generate) (*Default*) - Generate barrel files.
+- [config](/config) - View/Open the config file.
