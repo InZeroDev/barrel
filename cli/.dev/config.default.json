@@ -11,8 +11,8 @@
       "fileFormat": "import './$P';"
     },
 		"css": {
-			"fileFormat": "@import './$P.css';",
-			"folderFormat": "@import './$P/index.css';"
+			"fileFormat": "@import './$P$E';",
+			"folderFormat": "@import './$P/index$E';"
 		},
 		"sass": {
 			"fileFormat": "@forward './$P';",
