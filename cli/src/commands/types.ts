@@ -5,5 +5,5 @@ export type Argument = {
 export type Option = {
 	flags: string;
 	desc: string;
-	def?: any;
+	def?: string | string[] | boolean;
 };

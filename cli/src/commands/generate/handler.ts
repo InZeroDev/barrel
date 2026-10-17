@@ -8,7 +8,7 @@ import { hasKey, iife, override, removeExtension } from "~/utils/utils";
 import fs from "fs-extra";
 
 type Options = {
-	preset?: string;
+	preset: string[];
 
 	fileInclude?: string[];
 	folderInclude?: string[];
@@ -56,7 +56,17 @@ function handleFile(barrel: string, opts: Options) {
 }
 
 function getPreset(barrel: string, opts: Options) {
-	const targetPreset = opts.preset ?? path.extname(barrel).slice(1);
+	const targetPreset = iife(() => {
+		const presetsObj = Object.fromEntries(
+			opts.preset
+				.filter((p) => p.includes(":"))
+				.map<[string, string]>((p) => p.split(":") as [string, string]),
+		);
+
+		const barrelExt = path.extname(barrel).slice(1);
+		const userPreset = presetsObj[barrelExt];
+		return userPreset ?? barrelExt;
+	});
 
 	const preset = config.presets?.[targetPreset];
 	if (!preset) {

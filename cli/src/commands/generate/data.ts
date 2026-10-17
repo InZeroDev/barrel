@@ -10,8 +10,9 @@ const args = [
 
 const opts = [
 	{
-		flags: "-p, --preset <preset>",
-		desc: "Preset to use.",
+		flags: "-p, --preset <preset...>",
+		desc: "Preset to use. Example: -p ts:ts-imp css:css-2",
+    def: [],
 	},
 
 	{
