@@ -28,6 +28,7 @@ const defaultsSchema = z.object({
 export const configSchema = z.object({
 	presets: presetsSchema.default({}),
 	defaults: defaultsSchema.prefault({}),
+	openConfigCmd: z.string().default("code $P"),
 });
 
 export type Config = z.infer<typeof configSchema>;

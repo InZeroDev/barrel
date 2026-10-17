@@ -9,7 +9,8 @@ export function handler(
 	value: string | undefined,
 	opts: { open: boolean },
 ) {
-	if (opts.open) return execSync("code " + configPath, { stdio: "inherit" });
+	if (opts.open)
+		return execSync(config.openConfigCmd.replace(/\$P/g, configPath), { stdio: "inherit" });
 
 	if (key === undefined) return console.log(configPath);
 
