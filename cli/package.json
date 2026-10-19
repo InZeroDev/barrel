@@ -1,6 +1,6 @@
 {
 	"name": "@inzero/barrel",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Generate barrel files.",
 	"keywords": [
 		"cli",
@@ -17,6 +17,9 @@
 		"LICENSE",
 		"CHANGELOG.md"
 	],
+	"bin": {
+		"barrel": "dist/index.js"
+	},
 	"scripts": {
 		"build": "tsup",
 		"dev": "tsup --watch",
