@@ -7,6 +7,11 @@
 		"barrel",
 		"generate"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/InZeroDev/barrel",
+		"directory": "cli"
+	},
 	"license": "MIT",
 	"author": "InZero",
 	"files": [
