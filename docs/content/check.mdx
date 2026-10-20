@@ -1,0 +1,75 @@
+---
+title: Check
+---
+
+import { Files, File, Folder } from "fumadocs-ui/components/files";
+
+Check and create missing barrel files.
+
+## Usage
+
+```bash title='Terminal'
+barrel check <paths...> [options]
+```
+
+## Arguments
+
+| Argument     | Description                                              |
+| ------------ | -------------------------------------------------------- |
+| `<paths...>` | Paths to folders to check if they contain a barrel file. |
+
+## Options
+
+| Option                        | Description             | Default    |
+| ----------------------------- | ----------------------- | ---------- |
+| `-e, --extension <extension>` | Target extension.       | `required` |
+| `-c, --create`                | Create missing barrels. | `false`    |
+
+## Example
+
+Project Structure:
+
+<Files>
+  <Folder name="src" defaultOpen>
+    <Folder name="string" defaultOpen />
+    <Folder name="number" defaultOpen>
+      <File name="index.ts" className="bg-orange-400/10" />
+    </Folder>
+  </Folder>
+</Files>
+
+Command:
+
+```bash tab='long'
+barrel check src src/\* --extension ts --create
+
+# Created barrels:
+# - src/index.ts
+# - src/string/index.ts
+# Existing barrels:
+# - src/number/index.ts
+```
+
+```bash tab='short'
+barrel check src src/\* -e ts -c
+
+# Created barrels:
+# - src/index.ts
+# - src/string/index.ts
+# Existing barrels:
+# - src/number/index.ts
+```
+
+New Structure:
+
+<Files>
+  <Folder name="src" defaultOpen>
+    <File name="index.ts" className="bg-green-400/10" />
+    <Folder name="string" defaultOpen>
+      <File name="index.ts" className="bg-green-400/10" />
+    </Folder>
+    <Folder name="number" defaultOpen>
+      <File name="index.ts" className="bg-orange-400/10" />
+    </Folder>
+  </Folder>
+</Files>
